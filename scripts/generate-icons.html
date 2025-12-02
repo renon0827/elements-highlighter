@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Icon Generator</title>
+</head>
+<body>
+  <h1>Web Design Helper - Icon Generator</h1>
+  <p>右クリックで画像を保存してください</p>
+
+  <h2>16x16</h2>
+  <canvas id="icon16" width="16" height="16"></canvas>
+
+  <h2>48x48</h2>
+  <canvas id="icon48" width="48" height="48"></canvas>
+
+  <h2>128x128</h2>
+  <canvas id="icon128" width="128" height="128"></canvas>
+
+  <script>
+    function drawIcon(canvas) {
+      const ctx = canvas.getContext('2d');
+      const size = canvas.width;
+      const scale = size / 128;
+
+      // Background
+      ctx.fillStyle = '#4A90D9';
+      ctx.beginPath();
+      ctx.roundRect(8 * scale, 8 * scale, 112 * scale, 112 * scale, 8 * scale);
+      ctx.fill();
+
+      // Rectangles
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = 4 * scale;
+
+      ctx.beginPath();
+      ctx.roundRect(20 * scale, 20 * scale, 40 * scale, 30 * scale, 2 * scale);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.roundRect(68 * scale, 20 * scale, 40 * scale, 30 * scale, 2 * scale);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.roundRect(20 * scale, 58 * scale, 88 * scale, 50 * scale, 2 * scale);
+      ctx.stroke();
+
+      // Number badges
+      const badges = [
+        { x: 28, y: 28, num: '1' },
+        { x: 76, y: 28, num: '2' },
+        { x: 28, y: 66, num: '3' }
+      ];
+
+      badges.forEach(badge => {
+        ctx.fillStyle = '#FF4444';
+        ctx.beginPath();
+        ctx.arc(badge.x * scale, badge.y * scale, 10 * scale, 0, Math.PI * 2);
+        ctx.fill();
+
+        if (size >= 48) {
+          ctx.fillStyle = '#fff';
+          ctx.font = `bold ${14 * scale}px Arial`;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(badge.num, badge.x * scale, badge.y * scale);
+        }
+      });
+    }
+
+    drawIcon(document.getElementById('icon16'));
+    drawIcon(document.getElementById('icon48'));
+    drawIcon(document.getElementById('icon128'));
+  </script>
+</body>
+</html>
